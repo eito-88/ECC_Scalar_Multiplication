@@ -1,251 +1,230 @@
 				.global kbit_loop
 
-;-----------------------
-;ÉJÉEÉìÉ^ÉRÉsÉyÅ´
-;-----------------------
-;MVC.S2		TSCL,		B30	;ÉJÉEÉìÉ^ÉXÉ^Å[Ég
-;MVC.S2		TSCL,		B31	;ÉJÉEÉìÉ^ÉXÉgÉbÉv
-;SUB.L2		B31, B30,	B29	;ÉNÉçÉbÉNêîÉJÉEÉìÉg
-
-;--------------------
-;	kbit(256bit) Ç±Ç±Ç©ÇÁ
-;--------------------
 kbit_loop:
-				;
-				;A = 0xCFB2C80E DF296937 CBAAF19C 264463EB 4B06E9A3 6121BCB1 B9BB1C66 7292477F (256bit)
-				;B = 0xE8C2AF08 B5C031D5 89972BFB 12D2606A FED12880 9BF8AA4D EBC19790 F35879D5 (256bit)
-				;M = 0xFC622E0E 65F96944 56685605 702EC673 A16746D1 C6535C99 DCEB93D0 EB393839 (256bit)
-				;M'= 0x17D6C9F7
-				;n = 9
-				;k = 32
-				;
-				;---ïKóvÇ»ílÇÃäiî[---
-				;AÇÃäiî[(ëÊìÒÉeÉXÉgíl)			0xFAA2163A 8A92D2CD 4F84C583 20B243FD B300C4A0 60203169 14A30327 D3D75D47
-				MVKL.S2		0xD3D75D47, B24
-				MVKH.S2		0xD3D75D47, B24
-				MVKL.S2		0x14A30327, B25
-				MVKH.S2		0x14A30327, B25
-				MVKL.S2		0x60203169, B26
-				MVKH.S2		0x60203169, B26
-				MVKL.S2		0xB300C4A0, B27
-				MVKH.S2		0xB300C4A0, B27
-				MVKL.S2		0x20B243FD, B28
-				MVKH.S2		0x20B243FD, B28
-				MVKL.S2		0x4F84C583, B29
-				MVKH.S2		0x4F84C583, B29
-				MVKL.S2		0x8A92D2CD, B30
-				MVKH.S2		0x8A92D2CD, B30
-				MVKL.S2		0xFAA2163A, B31
-				MVKH.S2		0xFAA2163A, B31
-				;BÇÃäiî[(â∫à ÉrÉbÉgÇ©ÇÁäiî[Ç∑ÇÈÇÊ)	0xE8C2AF08 B5C031D5 89972BFB 12D2606A FED12880 9BF8AA4D EBC19790 F35879D5 (256bit)
-				MVKL.S1		0x80000000, A30
-				MVKH.S1		0x80000000, A30
-				MVKL.S2		0xF35879D5, B16
-				MVKH.S2		0xF35879D5, B16
-				MVKL.S2		0xEBC19790, B17
-				MVKH.S2		0xEBC19790, B17
-				MVKL.S2		0x9BF8AA4D, B18
-				MVKH.S2		0x9BF8AA4D, B18
-				MVKL.S2		0xFED12880, B19
-				MVKH.S2		0xFED12880, B19
-				MVKL.S2		0x12D2606A, B20
-				MVKH.S2		0x12D2606A, B20
-				MVKL.S2		0x89972BFB, B21
-				MVKH.S2		0x89972BFB, B21
-				MVKL.S2		0xB5C031D5, B22
-				MVKH.S2		0xB5C031D5, B22
-				MVKL.S2		0xE8C2AF08, B23
-				MVKH.S2		0xE8C2AF08, B23
-				STW.D1		B16,		*A30[0]
-				STW.D1		B17,		*A30[1]
-				STW.D1		B18,		*A30[2]
-				STW.D1		B19,		*A30[3]
-				STW.D1		B20,		*A30[4]
-				STW.D1		B21,		*A30[5]
-				STW.D1		B22,		*A30[6]
-				STW.D1		B23,		*A30[7]
-				ZERO.L2		B16
-				STW.D1		B16,		*A30[8]
-				MV.D2		A30,		B22
-				MVKL.S2		0,			B21
-				MVKL.S2		9,			B20;î‰äróp
-				;ZERO.S2		B28
-				;MÇÃäiî[(â∫à ÉrÉbÉgÇ©ÇÁäiî[Ç∑ÇÈÇÊ) 0xFC622E0E 65F96944 56685605 702EC673 A16746D1 C6535C99 DCEB93D0 EB393839 (256bit)
-				MVKL.S1		0xEB393839, A14
-				MVKH.S1		0xEB393839, A14
-				MVKL.S1		0xDCEB93D0, A15
-				MVKH.S1		0xDCEB93D0, A15
-				MVKL.S1		0xC6535C99, A16
-				MVKH.S1		0xC6535C99, A16
-				MVKL.S1		0xA16746D1, A17
-				MVKH.S1		0xA16746D1, A17
-				MVKL.S1		0x702EC673, A18
-				MVKH.S1		0x702EC673, A18
-				MVKL.S1		0x56685605, A19
-				MVKH.S1		0x56685605, A19
-				MVKL.S1		0x65F96944, A20
-				MVKH.S1		0x65F96944, A20
-				MVKL.S1		0xFC622E0E, A21
-				MVKH.S1		0xFC622E0E, A21
-				;SiÇÃèâä˙âª
-				ZERO.L1					A31:A30
-				ZERO.L1					A29:A28
-				ZERO.L1					A27:A26
-				ZERO.L1					A25:A24
-				ZERO.L1					A23:A22
-				;M'ÇÃäiî[						0x17D6C9F7
-				MVKL.S1		0x17D6C9F7, A31
-				MVKH.S1		0x17D6C9F7, A31
-				;test
-				LDW.D2			*B22[B21],		B23
+		;
+		;A = 0xCFB2C80E DF296937 CBAAF19C 264463EB 4B06E9A3 6121BCB1 B9BB1C66 7292477F (256bit)
+		;B = 0xE8C2AF08 B5C031D5 89972BFB 12D2606A FED12880 9BF8AA4D EBC19790 F35879D5 (256bit)
+		;M = 0xFC622E0E 65F96944 56685605 702EC673 A16746D1 C6535C99 DCEB93D0 EB393839 (256bit)
+		;M'= 0x17D6C9F7
+		;n = 9
+		;k = 32
+		;
+		;---ÂøÖË¶Å„Å™ÂÄ§„ÅÆÊ†ºÁ¥ç---
+		;A„ÅÆÊ†ºÁ¥ç(Á¨¨‰∫å„ÉÜ„Çπ„ÉàÂÄ§)			0xFAA2163A 8A92D2CD 4F84C583 20B243FD B300C4A0 60203169 14A30327 D3D75D47
+		MVKL.S2		0xD3D75D47, B24
+		MVKH.S2		0xD3D75D47, B24
+		MVKL.S2		0x14A30327, B25
+		MVKH.S2		0x14A30327, B25
+		MVKL.S2		0x60203169, B26
+		MVKH.S2		0x60203169, B26
+		MVKL.S2		0xB300C4A0, B27
+		MVKH.S2		0xB300C4A0, B27
+		MVKL.S2		0x20B243FD, B28
+		MVKH.S2		0x20B243FD, B28
+		MVKL.S2		0x4F84C583, B29
+		MVKH.S2		0x4F84C583, B29
+		MVKL.S2		0x8A92D2CD, B30
+		MVKH.S2		0x8A92D2CD, B30
+		MVKL.S2		0xFAA2163A, B31
+		MVKH.S2		0xFAA2163A, B31
+		;B„ÅÆÊ†ºÁ¥ç(‰∏ã‰Ωç„Éì„ÉÉ„Éà„Åã„ÇâÊ†ºÁ¥ç„Åô„Çã„Çà)	0xE8C2AF08 B5C031D5 89972BFB 12D2606A FED12880 9BF8AA4D EBC19790 F35879D5 (256bit)
+		MVKL.S1		0x80000000, A30
+		MVKH.S1		0x80000000, A30
+		MVKL.S2		0xF35879D5, B16
+		MVKH.S2		0xF35879D5, B16
+		MVKL.S2		0xEBC19790, B17
+		MVKH.S2		0xEBC19790, B17
+		MVKL.S2		0x9BF8AA4D, B18
+		MVKH.S2		0x9BF8AA4D, B18
+		MVKL.S2		0xFED12880, B19
+		MVKH.S2		0xFED12880, B19
+		MVKL.S2		0x12D2606A, B20
+		MVKH.S2		0x12D2606A, B20
+		MVKL.S2		0x89972BFB, B21
+		MVKH.S2		0x89972BFB, B21
+		MVKL.S2		0xB5C031D5, B22
+		MVKH.S2		0xB5C031D5, B22
+		MVKL.S2		0xE8C2AF08, B23
+		MVKH.S2		0xE8C2AF08, B23
+		STW.D1		B16,		*A30[0]
+		STW.D1		B17,		*A30[1]
+		STW.D1		B18,		*A30[2]
+		STW.D1		B19,		*A30[3]
+		STW.D1		B20,		*A30[4]
+		STW.D1		B21,		*A30[5]
+		STW.D1		B22,		*A30[6]
+		STW.D1		B23,		*A30[7]
+		ZERO.L2		B16
+		STW.D1		B16,		*A30[8]
+		MV.D2		A30,		B22
+		MVKL.S2		0,			B21
+		MVKL.S2		9,			B20;ÊØîËºÉÁî®
+		;ZERO.S2		B28
+		;M„ÅÆÊ†ºÁ¥ç(‰∏ã‰Ωç„Éì„ÉÉ„Éà„Åã„ÇâÊ†ºÁ¥ç„Åô„Çã„Çà) 0xFC622E0E 65F96944 56685605 702EC673 A16746D1 C6535C99 DCEB93D0 EB393839 (256bit)
+		MVKL.S1		0xEB393839, A14
+		MVKH.S1		0xEB393839, A14
+		MVKL.S1		0xDCEB93D0, A15
+		MVKH.S1		0xDCEB93D0, A15
+		MVKL.S1		0xC6535C99, A16
+		MVKH.S1		0xC6535C99, A16
+		MVKL.S1		0xA16746D1, A17
+		MVKH.S1		0xA16746D1, A17
+		MVKL.S1		0x702EC673, A18
+		MVKH.S1		0x702EC673, A18
+		MVKL.S1		0x56685605, A19
+		MVKH.S1		0x56685605, A19
+		MVKL.S1		0x65F96944, A20
+		MVKH.S1		0x65F96944, A20
+		MVKL.S1		0xFC622E0E, A21
+		MVKH.S1		0xFC622E0E, A21
+		;Si„ÅÆÂàùÊúüÂåñ
+		ZERO.L1					A31:A30
+		ZERO.L1					A29:A28
+		ZERO.L1					A27:A26
+		ZERO.L1					A25:A24
+		ZERO.L1					A23:A22
+		;M'„ÅÆÊ†ºÁ¥ç						0x17D6C9F7
+		MVKL.S1		0x17D6C9F7, A31
+		MVKH.S1		0x17D6C9F7, A31
+		;test
+		LDW.D2			*B22[B21],		B23
+		
+		;------------------------------
+		;‰ª•‰∏ã„É¨„Ç∏„Çπ„Çø„Éû„ÉÉ„Éî„É≥„Ç∞
+		;------------------------------
+		; A0  A1  A2  A3  A4  A5  A6  A7  A8  A9  A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 A21 A22 A23 A24 A25 A26 A27 A28 A29 A30 A31
+		;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+		;|qM0|qM1|qM2|qM3|qM4|qM5|qM6|qM7|qM8|   |add|add|add|add|M0 |M1 |M2 |M3 |M4 |M5 |M6 |M7 |Si0|Si1|Si2|Si3|Si4|Si5|Si6|Si7|Si8|M' |
+		;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+		;  =c                                                    |<----------------------------->|<--------------------------------->|
+		;                                                        |*************given*************| Si+1 (init=0, 9ÂÄã„ÅÇ„Çå„Å∞ËâØ„ÅÑ„ÅØ„Åö)      |
+		;
+		; B0  B1  B2  B3  B4  B5  B6  B7  B8  B9  B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20 B21 B22 B23 B24 B25 B26 B27 B28 B29 B30 B31
+		;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+		;|bA0|bA1|bA2|bA3|bA4|bA5|bA6|bA7|bA8|   |add|add|add|add| X | X |   |   |   |   |   |num|mem| B |A_0|A_1|A_2|A_3|A_4|A_5|A_6|A_7|
+		;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+		;  =q                                                            |<----------------------------->|<----------------------------->|
+		;
+		;moq=ÁßªÂãïÂæå„ÅÆq, B0„ÅØÈÄî‰∏≠„Åßq„Å´„Å™„Çã, A0„ÅØÈÄî‰∏≠„ÅßA23:A22„ÅÆ„Ç≠„É£„É™„Éº(c)„Å´
 
-
-				;
-				;------------------------------
-				;à»â∫ÉåÉWÉXÉ^É}ÉbÉsÉìÉO
-				;------------------------------
-				; A0  A1  A2  A3  A4  A5  A6  A7  A8  A9  A10 A11 A12 A13 A14 A15 A16 A17 A18 A19 A20 A21 A22 A23 A24 A25 A26 A27 A28 A29 A30 A31
-				;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-				;|qM0|qM1|qM2|qM3|qM4|qM5|qM6|qM7|qM8|   |add|add|add|add|M0 |M1 |M2 |M3 |M4 |M5 |M6 |M7 |Si0|Si1|Si2|Si3|Si4|Si5|Si6|Si7|Si8|M' |
-				;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-				;  =c                                                    |<----------------------------->|<--------------------------------->|
-				;                                                        |*************given*************| Si+1 (init=0, 9å¬Ç†ÇÍÇŒó«Ç¢ÇÕÇ∏)      |
-				;
-				; B0  B1  B2  B3  B4  B5  B6  B7  B8  B9  B10 B11 B12 B13 B14 B15 B16 B17 B18 B19 B20 B21 B22 B23 B24 B25 B26 B27 B28 B29 B30 B31
-				;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-				;|bA0|bA1|bA2|bA3|bA4|bA5|bA6|bA7|bA8|   |add|add|add|add| X | X |   |   |   |   |   |num|mem| B |A_0|A_1|A_2|A_3|A_4|A_5|A_6|A_7|
-				;+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-				;  =q                                                            |<----------------------------->|<----------------------------->|
-				;
-				;moq=à⁄ìÆå„ÇÃq, B0ÇÕìríÜÇ≈qÇ…Ç»ÇÈ, A0ÇÕìríÜÇ≈A23:A22ÇÃÉLÉÉÉäÅ[(c)Ç…
-
-loop_counter:
-				ZERO.L2		B21
-				MVC.S2		TSCL,		B30	;ÉJÉEÉìÉ^ÉXÉ^Å[Ég
 loopMAIN:
-
-				;b0*(A0~A3)
-				;
-				LDW.D2			*B22[B21],		B23			;
-				NOP		4
-				MPY32U.M2		B23, B24,		B1:B0		;
-				MPY32U.M2		B23, B25,		B3:B2		;
-				MPY32U.M2		B23, B26,		B5:B4		;
-				MPY32U.M2		B23, B27,		B7:B6		; B0ämíË
-				ADDU.L1			A22, B0,		A13:A12		; Si0+biA0ÇÃÇ∆Ç±ÇÎ			A13:A12(=Si0+b0A0)égóp B0ïsóv
-				MPY32U.M1		A31, A12,		A11:A10		; (~)*M' ÇÃÇ∆Ç±ÇÎ			A11ÇÕïsóv
-			||	ADDU.L2			B1,  B2,		B13:B12		; biAÇåàÇﬂÇÈÇΩÇﬂÇÃë´ÇµéZÅ´
-				MV.S2			B12, 			B1			; B1ämíË
-			||	ADDU.L2			B3,  B13,		B11:B10		;						B3ïsóv
-				ADDU.L2			B4,  B11:B10,	B11:B10		;						B4ïsóv
-				MV.S2			B10,			B2			; B2ämíË
-			||	ADDU.L2			B5,  B11,		B13:B12		; à»â∫Ç©ÇÁA10(q)égópâ¬		B5ïsóv
-				;Ç±Ç±Ç©ÇÁqMóêì¸(Unit.1)
-				ADDU.L2			B6,  B13:B12,	B13:B12		;						B6ïsóv
-			||	MV.S2			A10,			B0			;^-^-^qÇA10Ç©ÇÁB0Ç…à⁄çs^-^-^
-				MV.S2			B12,			B3			; B3ämíË
-			||	ADDU.L2			B7,  B13,		B11:B10		;						B7ïsóv B13:B12ïsóv
-			||	MPY32U.M1		A14, B0,		A1:A0		; q*M0					---mark---
-			||	MPY32U.M2		B23, B28,		B5:B4		; b0*A4
-				MPY32U.M1		A15, B0,		A3:A2		; q*M1
-			||	MPY32U.M2		B23, B29,		B7:B6		; b0*A5
-				MPY32U.M1		A16, B0,		A5:A4		; q*M2
-			||	MPY32U.M2		B23, B30,		B9:B8		; b0*A6
-				MPY32U.M1		A17, B0,		A7:A6		; q*M3					---mark Ç©ÇÁ A0~A7, B0~B9 égópíÜ---
-				ADDU.L1			A0,  A13:A12,	A13:A12		; Si+biA+qM ÇÃÇPåÖñ⁄ämíË	A0ämíËçœÇ›->ÇªÇÃå„A0ïsóvÇ…
-			||	ADDU.L2			B4,  B11:B10,	B11:B10		; biAÇÃécÇËÇÃë´ÇµéZ
-				MV.S1			A12, 			A22			; A22ämíË				A12ïsóv
-			||	MV.D1			A13,			A0			; Si+1ÇåàÇﬂÇÈë´ÇµéZÇÕàÍéûï€óØ	A0égópíÜ A13ïsóv
-			||	MV.S2			B10,			B4			; B4ämíË
-			||	ADDU.L1			A1,  A2,		A11:A10		; qMÇÃë´ÇµéZ
-			||	ADDU.L2			B5,  B11,		B13:B12		; biAÇÃécÇËÇÃë´ÇµéZ			B11:B10ïsóv
-				MV.S1			A10,			A1			; A1ämíË
-			||	ADDU.L1			A3,  A11,		A13:A12		; qMÇÃécÇËÇÃë´ÇµéZ			îıçlÅFAÇ∆BÇÃåvéZÇçáÇÌÇπÇÈÇΩÇﬂÇ…Bë§ÇÕàÍâÒãxÇ›
-				ADDU.L1			A4,  A13:A12,	A13:A12		; qMÇÃécÇËÇÃë´ÇµéZ
-			||	ADDU.L2			B6,  B13:B12,	B13:B12		; biAÇÃécÇËÇÃë´ÇµéZ
-				MV.S1			A12,			A2			; A2ämíË
-			||	MV.S2			B12,			B5			; B5ämíË
-			||	ADDU.L1			A5,  A13,		A11:A10		; qMÇÃécÇËÇÃë´ÇµéZ
-			||	ADDU.L2			B7,  B13,		B11:B10		; biAÇÃécÇËÇÃë´ÇµéZ
-				ADDU.L1			A6,  A11:A10,	A11:A10		;
-			||	ADDU.L2			B8,  B11:B10,	B11:B10		;
-			||	MPY32U.M1		A18, B0,		A5:A4		; q*M4					A4~A7ïsóv
-			||	MPY32U.M2		B23, B31,		B9:B8		; b0*A7 : biAÇÃä|ÇØéZèIÇÌÇË
-				MV.S1			A10,			A3			; A3ämíË
-			||	MV.S2			B10,			B6			; B6ämíË
-			||	ADDU.L1			A7,  A11,		A13:A12		;
-			||	ADDU.L2			B9,  B11,		B13:B12		;
-				MPY32U.M1		A19, B0,		A7:A6		; q*M5
-			||	ADD.D1			A0,	 A23,		A23			; Si+biA+qMÇÃåJÇËè„Ç™ÇËÇÃåvéZ
-				MPY32U.M1		A20, B0,		A9:A8		; q*M6
-				ADDU.L1			A4,  A13:A12,	A13:A12		;
-			||	ADDU.L2			B8,  B13:B12,	B13:B12		;
-				MV.S1			A12,			A4			; A4ämíË
-			||	MV.S2			B12,			B7			; B7ämíË
-			||	ADDU.L1			A5,  A13,		A11:A10		;
-			||	ADDU.L2			B9,  B13,		B9:B8		; B8ämíË (B9ÇÕ0ÇÃÇÕÇ∏):biAåvéZèIÇÌÇË <-çáÇ¡ÇƒÇÈok
-				ADDU.L1			A6,  A11:A10,	A11:A10		;
-			||	MPY32U.M1		A21, B0,		A9:A8		; q*M7 : qMÇÃä|ÇØéZèIÇÌÇË
-				MV.S1			A10,			A5			; A5ämíË
-			||	ADDU.L1			A7,  A11,		A13:A12		;
-				ADDU.L1			A8,  A13:A12,	A13:A12		;
-				MV.S1			A12,			A6			; A6ämíË
-			||	ADDU.L1			A9,  A13,		A11:A10		;
-				ADDU.L1			A8,  A11:A10,	A11:A10		;
-			||	ADDU.L2			B1,  A23,		B13:B12		; note:1			:Ç±Ç±Ç©ÇÁë´ÇµéZäJén
-				MV.S1			A10,			A7			; A7ämíË
-			||	ADDU.L1			A9,  A11,		A9:A8		; A8ämíË :qMåvéZèIÇÌÇË <-çáÇ¡ÇƒÇÈok
-			||	ADDU.L2			B2,  A24,		B11:B10		; note:2
-;Ç‹Ç†énÇ‹Ç¡ÇƒÇÈÇØÇ«ë´ÇµéZäJénÇ¡ÇƒÇ±Ç∆Ç≈ Si+biA+qMÇÃÇ∆Ç±ÇÎ
-				ADDU.L1			A1,  B12,		A13:A12		; note:3
-			||	ADDU.L2			B13, B11:B10,	B11:B10		;
-				MV.S1			A12,			A22			; note:4 A22ämíË
-			||	ADDU.L1			A2,  A13,		A11:A10		;
-			||	ADDU.L2			B3,  A25,		B13:B12		;
-				ADDU.S1			A11:A10, B10,	A11:A10		; note:5
-			||	ADDU.L2			B11, B13:B12,	B13:B12		;
-				MV.S1			A10,			A23			; note:6 A23ämíË
-			||	ADDU.L1			A3,  A11,		A13:A12		;
-			||	ADDU.L2			B4,  A26,		B11:B10		;
-				ADDU.S1			A13:A12, B12,	A13:A12		; note:7
-			||	ADDU.L2			B13, B11:B10,	B11:B10		;
-				MV.S1			A12,			A24			; note:8 A24ämíË		:::à»â∫ÉRÉsÉy
-			||	ADDU.L1			A4,  A13,		A11:A10		;
-			||	ADDU.L2			B5,  A27,		B13:B12		;
-				ADDU.S1			A11:A10, B10,	A11:A10		; note:9
-			||	ADDU.L2			B11, B13:B12,	B13:B12		;
-				MV.S1			A10,			A25			; note:10 A25ämíË
-			||	ADDU.L1			A5,  A11,		A13:A12		;
-			||	ADDU.L2			B6,  A28,		B11:B10		;
-				ADDU.S1			A13:A12, B12,	A13:A12		; note:11
-			||	ADDU.L2			B13, B11:B10,	B11:B10		;
-				MV.S1			A12,			A26			; note:12 A26ämíË	:::
-			||	ADDU.L1			A6,  A13,		A11:A10		;
-			||	ADDU.L2			B7,  A29,		B13:B12		;
-				ADDU.S1			A11:A10, B10,	A11:A10		; note:13
-			||	ADDU.L2			B11, B13:B12,	B13:B12		;
-				MV.S1			A10,			A27			; note:14 A27ämíË
-			||	ADDU.L1			A7,  A11,		A13:A12		;
-			||	ADDU.L2			B8,  A30,		B11:B10		;
-				ADDU.S1			A13:A12, B12,	A13:A12		; note:15
-			||	ADDU.L2			B13, B11:B10,	B11:B10		;
-				MV.S1			A12,			A28			; note:16 A28ämíË	:::ç≈å„ÇÕïœë•
-			||	ADDU.S2			B11:B10, A8,	B11:B10		;
-				ADDU.S2			B11:B10, A13,	B11:B10		; note:17
-				MV.S1			B10,			A29			; note:18 A29ämíË
-			||	ADD.D2			1,  B21,		B21			; B21 + 1
-				MV.S1			B11,			A30			; note:19 A30ämíË
-			||	CMPEQ.L2		B21,  8,		B0			; B21 == B20 -> B0 = 1
-		[!B0]	B.S1			loopMAIN,					; loop
-				NOP				5
-
-
-loopNOP:
-				MVC.S2		TSCL,		B31	;ÉJÉEÉìÉ^ÉXÉgÉbÉv
-				SUB.L2		B31, B30,	B27	;ÉNÉçÉbÉNêîÉJÉEÉìÉg
-				BNOP.S1		loop_counter,	5
-				NOP
-				NOP
-				NOP
-				NOP
-
+		;b0*(A0~A3)
+		;
+		LDW.D2			*B22[B21],		B23		;
+		NOP		4
+		MPY32U.M2		B23, B24,		B1:B0		;
+		MPY32U.M2		B23, B25,		B3:B2		;
+		MPY32U.M2		B23, B26,		B5:B4		;
+		MPY32U.M2		B23, B27,		B7:B6		; B0Á¢∫ÂÆö
+		ADDU.L1			A22, B0,		A13:A12		; Si0+biA0„ÅÆ„Å®„Åì„Çç			A13:A12(=Si0+b0A0)‰ΩøÁî® B0‰∏çË¶Å
+		MPY32U.M1		A31, A12,		A11:A10		; (~)*M' „ÅÆ„Å®„Åì„Çç			A11„ÅØ‰∏çË¶Å
+	||	ADDU.L2			B1,  B2,		B13:B12		; biA„ÇíÊ±∫„ÇÅ„Çã„Åü„ÇÅ„ÅÆË∂≥„ÅóÁÆó‚Üì
+		MV.S2			B12, 			B1		; B1Á¢∫ÂÆö
+	||	ADDU.L2			B3,  B13,		B11:B10		;						B3‰∏çË¶Å
+		ADDU.L2			B4,  B11:B10,		B11:B10		;						B4‰∏çË¶Å
+		MV.S2			B10,			B2		; B2Á¢∫ÂÆö
+	||	ADDU.L2			B5,  B11,		B13:B12		; ‰ª•‰∏ã„Åã„ÇâA10(q)‰ΩøÁî®ÂèØ		B5‰∏çË¶Å
+		;„Åì„Åì„Åã„ÇâqM‰π±ÂÖ•(Unit.1)
+		ADDU.L2			B6,  B13:B12,		B13:B12		;						B6‰∏çË¶Å
+	||	MV.S2			A10,			B0		;^-^-^q„ÇíA10„Åã„ÇâB0„Å´ÁßªË°å^-^-^
+		MV.S2			B12,			B3		; B3Á¢∫ÂÆö
+	||	ADDU.L2			B7,  B13,		B11:B10		;						B7‰∏çË¶Å B13:B12‰∏çË¶Å
+	||	MPY32U.M1		A14, B0,		A1:A0		; q*M0					---mark---
+	||	MPY32U.M2		B23, B28,		B5:B4		; b0*A4
+		MPY32U.M1		A15, B0,		A3:A2		; q*M1
+	||	MPY32U.M2		B23, B29,		B7:B6		; b0*A5
+		MPY32U.M1		A16, B0,		A5:A4		; q*M2
+	||	MPY32U.M2		B23, B30,		B9:B8		; b0*A6
+		MPY32U.M1		A17, B0,		A7:A6		; q*M3					---mark „Åã„Çâ A0~A7, B0~B9 ‰ΩøÁî®‰∏≠---
+		ADDU.L1			A0,  A13:A12,		A13:A12		; Si+biA+qM „ÅÆÔºëÊ°ÅÁõÆÁ¢∫ÂÆö	A0Á¢∫ÂÆöÊ∏à„Åø->„Åù„ÅÆÂæåA0‰∏çË¶Å„Å´
+	||	ADDU.L2			B4,  B11:B10,		B11:B10		; biA„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó
+		MV.S1			A12, 			A22		; A22Á¢∫ÂÆö				A12‰∏çË¶Å
+	||	MV.D1			A13,			A0		; Si+1„ÇíÊ±∫„ÇÅ„ÇãË∂≥„ÅóÁÆó„ÅØ‰∏ÄÊôÇ‰øùÁïô	A0‰ΩøÁî®‰∏≠ A13‰∏çË¶Å
+	||	MV.S2			B10,			B4		; B4Á¢∫ÂÆö
+	||	ADDU.L1			A1,  A2,		A11:A10		; qM„ÅÆË∂≥„ÅóÁÆó
+	||	ADDU.L2			B5,  B11,		B13:B12		; biA„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó			B11:B10‰∏çË¶Å
+		MV.S1			A10,			A1		; A1Á¢∫ÂÆö
+	||	ADDU.L1			A3,  A11,		A13:A12		; qM„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó			ÂÇôËÄÉÔºöA„Å®B„ÅÆË®àÁÆó„ÇíÂêà„Çè„Åõ„Çã„Åü„ÇÅ„Å´BÂÅ¥„ÅØ‰∏ÄÂõû‰ºë„Åø
+		ADDU.L1			A4,  A13:A12,		A13:A12		; qM„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó
+	||	ADDU.L2			B6,  B13:B12,		B13:B12		; biA„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó
+		MV.S1			A12,			A2		; A2Á¢∫ÂÆö
+	||	MV.S2			B12,			B5		; B5Á¢∫ÂÆö
+	||	ADDU.L1			A5,  A13,		A11:A10		; qM„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó
+	||	ADDU.L2			B7,  B13,		B11:B10		; biA„ÅÆÊÆã„Çä„ÅÆË∂≥„ÅóÁÆó
+		ADDU.L1			A6,  A11:A10,		A11:A10		;
+	||	ADDU.L2			B8,  B11:B10,		B11:B10		;
+	||	MPY32U.M1		A18, B0,		A5:A4		; q*M4					A4~A7‰∏çË¶Å
+	||	MPY32U.M2		B23, B31,		B9:B8		; b0*A7 : biA„ÅÆÊéõ„ÅëÁÆóÁµÇ„Çè„Çä
+		MV.S1			A10,			A3		; A3Á¢∫ÂÆö
+	||	MV.S2			B10,			B6		; B6Á¢∫ÂÆö
+	||	ADDU.L1			A7,  A11,		A13:A12		;
+	||	ADDU.L2			B9,  B11,		B13:B12		;
+		MPY32U.M1		A19, B0,		A7:A6		; q*M5
+	||	ADD.D1			A0,	 A23,		A23		; Si+biA+qM„ÅÆÁπ∞„Çä‰∏ä„Åå„Çä„ÅÆË®àÁÆó
+		MPY32U.M1		A20, B0,		A9:A8		; q*M6
+		ADDU.L1			A4,  A13:A12,		A13:A12		;
+	||	ADDU.L2			B8,  B13:B12,		B13:B12		;
+		MV.S1			A12,			A4		; A4Á¢∫ÂÆö
+	||	MV.S2			B12,			B7		; B7Á¢∫ÂÆö
+	||	ADDU.L1			A5,  A13,		A11:A10		;
+	||	ADDU.L2			B9,  B13,		B9:B8		; B8Á¢∫ÂÆö (B9„ÅØ0„ÅÆ„ÅØ„Åö):biAË®àÁÆóÁµÇ„Çè„Çä <-Âêà„Å£„Å¶„Çãok
+		ADDU.L1			A6,  A11:A10,		A11:A10		;
+	||	MPY32U.M1		A21, B0,		A9:A8		; q*M7 : qM„ÅÆÊéõ„ÅëÁÆóÁµÇ„Çè„Çä
+		MV.S1			A10,			A5		; A5Á¢∫ÂÆö
+	||	ADDU.L1			A7,  A11,		A13:A12		;
+		ADDU.L1			A8,  A13:A12,		A13:A12		;
+		MV.S1			A12,			A6		; A6Á¢∫ÂÆö
+	||	ADDU.L1			A9,  A13,		A11:A10		;
+		ADDU.L1			A8,  A11:A10,		A11:A10		;
+	||	ADDU.L2			B1,  A23,		B13:B12		; note:1			:„Åì„Åì„Åã„ÇâË∂≥„ÅóÁÆóÈñãÂßã
+		MV.S1			A10,			A7		; A7Á¢∫ÂÆö
+	||	ADDU.L1			A9,  A11,		A9:A8		; A8Á¢∫ÂÆö :qMË®àÁÆóÁµÇ„Çè„Çä <-Âêà„Å£„Å¶„Çãok
+	||	ADDU.L2			B2,  A24,		B11:B10		; note:2
+;„Åæ„ÅÇÂßã„Åæ„Å£„Å¶„Çã„Åë„Å©Ë∂≥ÁÆóÈñãÂßã„Å£„Å¶„Åì„Å®„Åß Si+biA+qM„ÅÆ„Å®„Åì„Çç
+		ADDU.L1			A1,  B12,		A13:A12		; note:3
+	||	ADDU.L2			B13, B11:B10,		B11:B10		;
+		MV.S1			A12,			A22		; note:4 A22Á¢∫ÂÆö
+	||	ADDU.L1			A2,  A13,		A11:A10		;
+	||	ADDU.L2			B3,  A25,		B13:B12		;
+		ADDU.S1			A11:A10, B10,		A11:A10		; note:5
+	||	ADDU.L2			B11, B13:B12,		B13:B12		;
+		MV.S1			A10,			A23		; note:6 A23Á¢∫ÂÆö
+	||	ADDU.L1			A3,  A11,		A13:A12		;
+	||	ADDU.L2			B4,  A26,		B11:B10		;
+		ADDU.S1			A13:A12, B12,		A13:A12		; note:7
+	||	ADDU.L2			B13, B11:B10,		B11:B10		;
+		MV.S1			A12,			A24		; note:8 A24Á¢∫ÂÆö		
+	||	ADDU.L1			A4,  A13,		A11:A10		;
+	||	ADDU.L2			B5,  A27,		B13:B12		;
+		ADDU.S1			A11:A10, B10,		A11:A10		; note:9
+	||	ADDU.L2			B11, B13:B12,		B13:B12		;
+		MV.S1			A10,			A25		; note:10 A25Á¢∫ÂÆö
+	||	ADDU.L1			A5,  A11,		A13:A12		;
+	||	ADDU.L2			B6,  A28,		B11:B10		;
+		ADDU.S1			A13:A12, B12,		A13:A12		; note:11
+	||	ADDU.L2			B13, B11:B10,		B11:B10		;
+		MV.S1			A12,			A26		; note:12 A26Á¢∫ÂÆö	:::
+	||	ADDU.L1			A6,  A13,		A11:A10		;
+	||	ADDU.L2			B7,  A29,		B13:B12		;
+		ADDU.S1			A11:A10, B10,		A11:A10		; note:13
+	||	ADDU.L2			B11, B13:B12,		B13:B12		;
+		MV.S1			A10,			A27		; note:14 A27Á¢∫ÂÆö
+	||	ADDU.L1			A7,  A11,		A13:A12		;
+	||	ADDU.L2			B8,  A30,		B11:B10		;
+		ADDU.S1			A13:A12, B12,		A13:A12		; note:15
+	||	ADDU.L2			B13, B11:B10,		B11:B10		;
+		MV.S1			A12,			A28		; note:16 A28Á¢∫ÂÆö	:::ÊúÄÂæå„ÅØÂ§âÂâá
+	||	ADDU.S2			B11:B10, A8,		B11:B10		;
+		ADDU.S2			B11:B10, A13,		B11:B10		; note:17
+		MV.S1			B10,			A29		; note:18 A29Á¢∫ÂÆö
+	||	ADD.D2			1,  B21,		B21		; B21 + 1
+		MV.S1			B11,			A30		; note:19 A30Á¢∫ÂÆö
+	||	CMPEQ.L2		B21,  8,		B0		; B21 == B20 -> B0 = 1
+	[!B0]	B.S1			loopMAIN,				; loop
+		NOP				5
+loopNOP:	
+		BNOP.S1		loop_counter,	5
+		NOP
+		NOP
+		NOP
+		NOP
