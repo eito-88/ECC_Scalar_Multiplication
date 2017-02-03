@@ -46,20 +46,20 @@ kbit_loop:
 		MVKH.S2		0xB5C031D5, B22
 		MVKL.S2		0xE8C2AF08, B23
 		MVKH.S2		0xE8C2AF08, B23
-		STW.D1		B16,		*A30[0]
-		STW.D1		B17,		*A30[1]
-		STW.D1		B18,		*A30[2]
-		STW.D1		B19,		*A30[3]
-		STW.D1		B20,		*A30[4]
-		STW.D1		B21,		*A30[5]
-		STW.D1		B22,		*A30[6]
-		STW.D1		B23,		*A30[7]
+		STW.D1		B16,	    *A30[0]
+		STW.D1		B17,        *A30[1]
+		STW.D1		B18,	    *A30[2]
+		STW.D1		B19,	    *A30[3]
+		STW.D1		B20,	    *A30[4]
+		STW.D1		B21,	    *A30[5]
+		STW.D1		B22,	    *A30[6]
+		STW.D1		B23,	    *A30[7]
 		ZERO.L2		B16
-		STW.D1		B16,		*A30[8]
-		MV.D2		A30,		B22
-		MVKL.S2		0,			B21
-		MVKL.S2		9,			B20;比較用
-		;ZERO.S2		B28
+		STW.D1		B16,	    *A30[8]
+		MV.D2		A30,	    B22
+		MVKL.S2		0,	    B21
+		MVKL.S2		9,	    B20;比較用
+		;ZERO.S2		    B28
 		;Mの格納(下位ビットから格納するよ) 0xFC622E0E 65F96944 56685605 702EC673 A16746D1 C6535C99 DCEB93D0 EB393839 (256bit)
 		MVKL.S1		0xEB393839, A14
 		MVKH.S1		0xEB393839, A14
@@ -78,16 +78,16 @@ kbit_loop:
 		MVKL.S1		0xFC622E0E, A21
 		MVKH.S1		0xFC622E0E, A21
 		;Siの初期化
-		ZERO.L1					A31:A30
-		ZERO.L1					A29:A28
-		ZERO.L1					A27:A26
-		ZERO.L1					A25:A24
-		ZERO.L1					A23:A22
-		;M'の格納						0x17D6C9F7
+		ZERO.L1			    A31:A30
+		ZERO.L1			    A29:A28
+		ZERO.L1			    A27:A26
+		ZERO.L1			    A25:A24
+		ZERO.L1			    A23:A22
+		;M'の格納
 		MVKL.S1		0x17D6C9F7, A31
 		MVKH.S1		0x17D6C9F7, A31
 		;test
-		LDW.D2			*B22[B21],		B23
+		LDW.D2		*B22[B21],  B23
 		
 		;------------------------------
 		;以下レジスタマッピング
@@ -110,120 +110,120 @@ kbit_loop:
 loopMAIN:
 		;b0*(A0~A3)
 		;
-		LDW.D2			*B22[B21],		B23		;
+		LDW.D2		*B22[B21],		B23		;
 		NOP		4
-		MPY32U.M2		B23, B24,		B1:B0		;
-		MPY32U.M2		B23, B25,		B3:B2		;
-		MPY32U.M2		B23, B26,		B5:B4		;
-		MPY32U.M2		B23, B27,		B7:B6		; B0確定
-		ADDU.L1			A22, B0,		A13:A12		; Si0+biA0のところ			A13:A12(=Si0+b0A0)使用 B0不要
-		MPY32U.M1		A31, A12,		A11:A10		; (~)*M' のところ			A11は不要
-	||	ADDU.L2			B1,  B2,		B13:B12		; biAを決めるための足し算↓
-		MV.S2			B12, 			B1		; B1確定
-	||	ADDU.L2			B3,  B13,		B11:B10		;						B3不要
-		ADDU.L2			B4,  B11:B10,		B11:B10		;						B4不要
-		MV.S2			B10,			B2		; B2確定
-	||	ADDU.L2			B5,  B11,		B13:B12		; 以下からA10(q)使用可		B5不要
+		MPY32U.M2	B23, B24,		B1:B0		;
+		MPY32U.M2	B23, B25,		B3:B2		;
+		MPY32U.M2	B23, B26,		B5:B4		;
+		MPY32U.M2	B23, B27,		B7:B6		; B0確定
+		ADDU.L1		A22, B0,		A13:A12		; Si0+biA0のところ			A13:A12(=Si0+b0A0)使用 B0不要
+		MPY32U.M1	A31, A12,		A11:A10		; (~)*M' のところ			A11は不要
+	||	ADDU.L2		B1,  B2,		B13:B12		; biAを決めるための足し算↓
+		MV.S2		B12, 			B1		; B1確定
+	||	ADDU.L2		B3,  B13,		B11:B10		;						B3不要
+		ADDU.L2		B4,  B11:B10,		B11:B10		;						B4不要
+		MV.S2		B10,			B2		; B2確定
+	||	ADDU.L2		B5,  B11,		B13:B12		; 以下からA10(q)使用可		B5不要
 		;ここからqM乱入(Unit.1)
-		ADDU.L2			B6,  B13:B12,		B13:B12		;						B6不要
-	||	MV.S2			A10,			B0		;^-^-^qをA10からB0に移行^-^-^
-		MV.S2			B12,			B3		; B3確定
-	||	ADDU.L2			B7,  B13,		B11:B10		;						B7不要 B13:B12不要
-	||	MPY32U.M1		A14, B0,		A1:A0		; q*M0					---mark---
-	||	MPY32U.M2		B23, B28,		B5:B4		; b0*A4
-		MPY32U.M1		A15, B0,		A3:A2		; q*M1
-	||	MPY32U.M2		B23, B29,		B7:B6		; b0*A5
-		MPY32U.M1		A16, B0,		A5:A4		; q*M2
-	||	MPY32U.M2		B23, B30,		B9:B8		; b0*A6
-		MPY32U.M1		A17, B0,		A7:A6		; q*M3					---mark から A0~A7, B0~B9 使用中---
-		ADDU.L1			A0,  A13:A12,		A13:A12		; Si+biA+qM の１桁目確定	A0確定済み->その後A0不要に
-	||	ADDU.L2			B4,  B11:B10,		B11:B10		; biAの残りの足し算
-		MV.S1			A12, 			A22		; A22確定				A12不要
-	||	MV.D1			A13,			A0		; Si+1を決める足し算は一時保留	A0使用中 A13不要
-	||	MV.S2			B10,			B4		; B4確定
-	||	ADDU.L1			A1,  A2,		A11:A10		; qMの足し算
-	||	ADDU.L2			B5,  B11,		B13:B12		; biAの残りの足し算			B11:B10不要
-		MV.S1			A10,			A1		; A1確定
-	||	ADDU.L1			A3,  A11,		A13:A12		; qMの残りの足し算			備考：AとBの計算を合わせるためにB側は一回休み
-		ADDU.L1			A4,  A13:A12,		A13:A12		; qMの残りの足し算
-	||	ADDU.L2			B6,  B13:B12,		B13:B12		; biAの残りの足し算
-		MV.S1			A12,			A2		; A2確定
-	||	MV.S2			B12,			B5		; B5確定
-	||	ADDU.L1			A5,  A13,		A11:A10		; qMの残りの足し算
-	||	ADDU.L2			B7,  B13,		B11:B10		; biAの残りの足し算
-		ADDU.L1			A6,  A11:A10,		A11:A10		;
-	||	ADDU.L2			B8,  B11:B10,		B11:B10		;
-	||	MPY32U.M1		A18, B0,		A5:A4		; q*M4					A4~A7不要
-	||	MPY32U.M2		B23, B31,		B9:B8		; b0*A7 : biAの掛け算終わり
-		MV.S1			A10,			A3		; A3確定
-	||	MV.S2			B10,			B6		; B6確定
-	||	ADDU.L1			A7,  A11,		A13:A12		;
-	||	ADDU.L2			B9,  B11,		B13:B12		;
-		MPY32U.M1		A19, B0,		A7:A6		; q*M5
-	||	ADD.D1			A0,	 A23,		A23		; Si+biA+qMの繰り上がりの計算
-		MPY32U.M1		A20, B0,		A9:A8		; q*M6
-		ADDU.L1			A4,  A13:A12,		A13:A12		;
-	||	ADDU.L2			B8,  B13:B12,		B13:B12		;
-		MV.S1			A12,			A4		; A4確定
-	||	MV.S2			B12,			B7		; B7確定
-	||	ADDU.L1			A5,  A13,		A11:A10		;
-	||	ADDU.L2			B9,  B13,		B9:B8		; B8確定 (B9は0のはず):biA計算終わり <-合ってるok
-		ADDU.L1			A6,  A11:A10,		A11:A10		;
-	||	MPY32U.M1		A21, B0,		A9:A8		; q*M7 : qMの掛け算終わり
-		MV.S1			A10,			A5		; A5確定
-	||	ADDU.L1			A7,  A11,		A13:A12		;
-		ADDU.L1			A8,  A13:A12,		A13:A12		;
-		MV.S1			A12,			A6		; A6確定
-	||	ADDU.L1			A9,  A13,		A11:A10		;
-		ADDU.L1			A8,  A11:A10,		A11:A10		;
-	||	ADDU.L2			B1,  A23,		B13:B12		; note:1			:ここから足し算開始
-		MV.S1			A10,			A7		; A7確定
-	||	ADDU.L1			A9,  A11,		A9:A8		; A8確定 :qM計算終わり <-合ってるok
-	||	ADDU.L2			B2,  A24,		B11:B10		; note:2
-;まあ始まってるけど足算開始ってことで Si+biA+qMのところ
-		ADDU.L1			A1,  B12,		A13:A12		; note:3
-	||	ADDU.L2			B13, B11:B10,		B11:B10		;
-		MV.S1			A12,			A22		; note:4 A22確定
-	||	ADDU.L1			A2,  A13,		A11:A10		;
-	||	ADDU.L2			B3,  A25,		B13:B12		;
-		ADDU.S1			A11:A10, B10,		A11:A10		; note:5
-	||	ADDU.L2			B11, B13:B12,		B13:B12		;
-		MV.S1			A10,			A23		; note:6 A23確定
-	||	ADDU.L1			A3,  A11,		A13:A12		;
-	||	ADDU.L2			B4,  A26,		B11:B10		;
-		ADDU.S1			A13:A12, B12,		A13:A12		; note:7
-	||	ADDU.L2			B13, B11:B10,		B11:B10		;
-		MV.S1			A12,			A24		; note:8 A24確定		
-	||	ADDU.L1			A4,  A13,		A11:A10		;
-	||	ADDU.L2			B5,  A27,		B13:B12		;
-		ADDU.S1			A11:A10, B10,		A11:A10		; note:9
-	||	ADDU.L2			B11, B13:B12,		B13:B12		;
-		MV.S1			A10,			A25		; note:10 A25確定
-	||	ADDU.L1			A5,  A11,		A13:A12		;
-	||	ADDU.L2			B6,  A28,		B11:B10		;
-		ADDU.S1			A13:A12, B12,		A13:A12		; note:11
-	||	ADDU.L2			B13, B11:B10,		B11:B10		;
-		MV.S1			A12,			A26		; note:12 A26確定	:::
-	||	ADDU.L1			A6,  A13,		A11:A10		;
-	||	ADDU.L2			B7,  A29,		B13:B12		;
-		ADDU.S1			A11:A10, B10,		A11:A10		; note:13
-	||	ADDU.L2			B11, B13:B12,		B13:B12		;
-		MV.S1			A10,			A27		; note:14 A27確定
-	||	ADDU.L1			A7,  A11,		A13:A12		;
-	||	ADDU.L2			B8,  A30,		B11:B10		;
-		ADDU.S1			A13:A12, B12,		A13:A12		; note:15
-	||	ADDU.L2			B13, B11:B10,		B11:B10		;
-		MV.S1			A12,			A28		; note:16 A28確定	:::最後は変則
-	||	ADDU.S2			B11:B10, A8,		B11:B10		;
-		ADDU.S2			B11:B10, A13,		B11:B10		; note:17
-		MV.S1			B10,			A29		; note:18 A29確定
-	||	ADD.D2			1,  B21,		B21		; B21 + 1
-		MV.S1			B11,			A30		; note:19 A30確定
-	||	CMPEQ.L2		B21,  8,		B0		; B21 == B20 -> B0 = 1
-	[!B0]	B.S1			loopMAIN,				; loop
-		NOP				5
+		ADDU.L2		B6,  B13:B12,		B13:B12		;						B6不要
+	||	MV.S2		A10,			B0		;^-^-^qをA10からB0に移行^-^-^
+		MV.S2		B12,			B3		; B3確定
+	||	ADDU.L2		B7,  B13,		B11:B10		;						B7不要 B13:B12不要
+	||	MPY32U.M1	A14, B0,		A1:A0		; q*M0					---mark---
+	||	MPY32U.M2	B23, B28,		B5:B4		; b0*A4
+		MPY32U.M1	A15, B0,		A3:A2		; q*M1
+	||	MPY32U.M2	B23, B29,		B7:B6		; b0*A5
+		MPY32U.M1	A16, B0,		A5:A4		; q*M2
+	||	MPY32U.M2	B23, B30,		B9:B8		; b0*A6
+		MPY32U.M1	A17, B0,		A7:A6		; q*M3					---mark から A0~A7, B0~B9 使用中---
+		ADDU.L1		A0,  A13:A12,		A13:A12		; Si+biA+qM の１桁目確定	A0確定済み->その後A0不要に
+	||	ADDU.L2		B4,  B11:B10,		B11:B10		; biAの残りの足し算
+		MV.S1		A12, 			A22		; A22確定				A12不要
+	||	MV.D1		A13,			A0		; Si+1を決める足し算は一時保留	A0使用中 A13不要
+	||	MV.S2		B10,			B4		; B4確定
+	||	ADDU.L1		A1,  A2,		A11:A10		; qMの足し算
+	||	ADDU.L2		B5,  B11,		B13:B12		; biAの残りの足し算			B11:B10不要
+		MV.S1		A10,			A1		; A1確定
+	||	ADDU.L1		A3,  A11,		A13:A12		; qMの残りの足し算			備考：AとBの計算を合わせるためにB側は一回休み
+		ADDU.L1		A4,  A13:A12,		A13:A12		; qMの残りの足し算
+	||	ADDU.L2		B6,  B13:B12,		B13:B12		; biAの残りの足し算
+		MV.S1		A12,			A2		; A2確定
+	||	MV.S2		B12,			B5		; B5確定
+	||	ADDU.L1		A5,  A13,		A11:A10		; qMの残りの足し算
+	||	ADDU.L2		B7,  B13,		B11:B10		; biAの残りの足し算
+		ADDU.L1		A6,  A11:A10,		A11:A10		;
+	||	ADDU.L2		B8,  B11:B10,		B11:B10		;
+	||	MPY32U.M1	A18, B0,		A5:A4		; q*M4					A4~A7不要
+	||	MPY32U.M2	B23, B31,		B9:B8		; b0*A7 : biAの掛け算終わり
+		MV.S1		A10,			A3		; A3確定
+	||	MV.S2		B10,			B6		; B6確定
+	||	ADDU.L1		A7,  A11,		A13:A12		;
+	||	ADDU.L2		B9,  B11,		B13:B12		;
+		MPY32U.M1	A19, B0,		A7:A6		; q*M5
+	||	ADD.D1		A0,	 A23,		A23		; Si+biA+qMの繰り上がりの計算
+		MPY32U.M1	A20, B0,		A9:A8		; q*M6
+		ADDU.L1		A4,  A13:A12,		A13:A12		;
+	||	ADDU.L2		B8,  B13:B12,		B13:B12		;
+		MV.S1		A12,			A4		; A4確定
+	||	MV.S2		B12,			B7		; B7確定
+	||	ADDU.L1		A5,  A13,		A11:A10		;
+	||	ADDU.L2		B9,  B13,		B9:B8		; B8確定 (B9は0のはず):biA計算終わり <-合ってるok
+		ADDU.L1		A6,  A11:A10,		A11:A10		;
+	||	MPY32U.M1	A21, B0,		A9:A8		; q*M7 : qMの掛け算終わり
+		MV.S1		A10,			A5		; A5確定
+	||	ADDU.L1		A7,  A11,		A13:A12		;
+		ADDU.L1		A8,  A13:A12,		A13:A12		;
+		MV.S1		A12,			A6		; A6確定
+	||	ADDU.L1		A9,  A13,		A11:A10		;
+		ADDU.L1		A8,  A11:A10,		A11:A10		;
+	||	ADDU.L2		B1,  A23,		B13:B12		; note:1			:ここから足し算開始
+		MV.S1		A10,			A7		; A7確定
+	||	ADDU.L1		A9,  A11,		A9:A8		; A8確定 :qM計算終わり <-合ってるok
+	||	ADDU.L2		B2,  A24,		B11:B10		; note:2
+;Si+biA+qMのところ
+		ADDU.L1		A1,  B12,		A13:A12		; note:3
+	||	ADDU.L2		B13, B11:B10,		B11:B10		;
+		MV.S1		A12,			A22		; note:4 A22確定
+	||	ADDU.L1		A2,  A13,		A11:A10		;
+	||	ADDU.L2		B3,  A25,		B13:B12		;
+		ADDU.S1		A11:A10, B10,		A11:A10		; note:5
+	||	ADDU.L2		B11, B13:B12,		B13:B12		;
+		MV.S1		A10,			A23		; note:6 A23確定
+	||	ADDU.L1		A3,  A11,		A13:A12		;
+	||	ADDU.L2		B4,  A26,		B11:B10		;
+		ADDU.S1		A13:A12, B12,		A13:A12		; note:7
+	||	ADDU.L2		B13, B11:B10,		B11:B10		;
+		MV.S1		A12,			A24		; note:8 A24確定		
+	||	ADDU.L1		A4,  A13,		A11:A10		;
+	||	ADDU.L2		B5,  A27,		B13:B12		;
+		ADDU.S1		A11:A10, B10,		A11:A10		; note:9
+	||	ADDU.L2		B11, B13:B12,		B13:B12		;
+		MV.S1		A10,			A25		; note:10 A25確定
+	||	ADDU.L1		A5,  A11,		A13:A12		;
+	||	ADDU.L2		B6,  A28,		B11:B10		;
+		ADDU.S1		A13:A12, B12,		A13:A12		; note:11
+	||	ADDU.L2		B13, B11:B10,		B11:B10		;
+		MV.S1		A12,			A26		; note:12 A26確定	:::
+	||	ADDU.L1		A6,  A13,		A11:A10		;
+	||	ADDU.L2		B7,  A29,		B13:B12		;
+		ADDU.S1		A11:A10, B10,		A11:A10		; note:13
+	||	ADDU.L2		B11, B13:B12,		B13:B12		;
+		MV.S1		A10,			A27		; note:14 A27確定
+	||	ADDU.L1		A7,  A11,		A13:A12		;
+	||	ADDU.L2		B8,  A30,		B11:B10		;
+		ADDU.S1		A13:A12, B12,		A13:A12		; note:15
+	||	ADDU.L2		B13, B11:B10,		B11:B10		;
+		MV.S1		A12,			A28		; note:16 A28確定	:::最後は変則
+	||	ADDU.S2		B11:B10, A8,		B11:B10		;
+		ADDU.S2		B11:B10, A13,		B11:B10		; note:17
+		MV.S1		B10,			A29		; note:18 A29確定
+	||	ADD.D2		1,  B21,		B21		; B21 + 1
+		MV.S1		B11,			A30		; note:19 A30確定
+	||	CMPEQ.L2	B21,  8,		B0		; B21 == B20 -> B0 = 1
+	[!B0]	B.S1		loopMAIN,				; loop
+		NOP		5
 loopNOP:	
-		BNOP.S1		loop_counter,	5
+		BNOP.S1		loopMAIN,	5
 		NOP
 		NOP
 		NOP
