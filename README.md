@@ -6,18 +6,26 @@ This file dscribes about:
   
   
 1.what's the ECC Scalar Multiplication(ECCSM)
+
   ECCSM is one of the next-generation Pubulic-key Cryptograph.
+  
   ECCSM is used by ECElGamal, ECDH or ECDSA et al.
+  
   Normally, ECCSM is in affine coordination but in my program, in Jacobian coordination because of easiness of calculate.
   
 2.contribution of each files in this repository
+
   each files in this repository are divided in two parts.
-  > one part has the main function which calls fast modular multiplication(MM) written by assembly.
-    and also, this part does basic ECCSM, modular addition and substraction.
-  > the other part is called by the main function. this file does fast MM only.
+  
+  one part has the main function which calls fast modular multiplication(MM) written by assembly.
+ 
+  and also, this part does basic ECCSM, modular addition and substraction.
+  
+  the other part is called by the main function. this file does fast MM only.
 
 
 ---Japanese are bellow
+
 ---以下日本語
 
 
