@@ -11,9 +11,9 @@ This file dscribes about:<br>
   <br>
 2.contribution of each files in this repository<br>
   each files in this repository are divided in two parts.<br>
-  one part has the main function which calls fast modular multiplication(MM) written by assembly. <br>
-  and also, this part does basic ECCSM, modular addition and substraction.<br>
-  the other part is called by the main function. this file does fast MM only.<br>
+  -one part has the main function which calls fast modular multiplication(MM) written by assembly. <br>
+   and also, this part does basic ECCSM, modular addition and substraction.<br>
+  -the other part is called by the main function. this file does fast MM only.<br>
 <br>
 <br>
 ---Japanese are bellow<br>
