@@ -1,9 +1,8 @@
-ECC_Scalar_Multiplication on TI DSP TMS320C6678<br>
+**ECC_Scalar_Multiplication on TI DSP TMS320C6678**<br>
 <br>
 This file dscribes about:<br>
   1.what's the ECC Scalar Multiplication(ECCSM)<br>
   2.contribution of each files in this repository<br>
-  <br>
   <br>
 1.what's the ECC Scalar Multiplication(ECCSM)<br>
   ECCSM is one of the next-generation Pubulic-key Cryptograph.<br>
@@ -25,7 +24,6 @@ This file dscribes about:<br>
   1.ECCスカラー倍算<br>
   2.このレポジトリ内の各ファイル<br>
 についての説明です。<br>
-<br>
 <br>
 1.ECCスカラー倍算(ECCSM)<br>
   ECCSMは次世代公開鍵暗号の一つです。<br>
