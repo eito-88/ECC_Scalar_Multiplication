@@ -1,4 +1,4 @@
-				.global kbit_loop
+		.global kbit_loop
 
 kbit_loop:
 		;
